@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validador CPF</title>
+</head>
+<body>
+    <h1>Validador de CPF</h1>
+    <input type="text" placeholder="Digite o CPF" id="cpf" value="">
+    <button onclick="validarCPF()">Validar CPF</button>
+    <p id="resultado"></p>
+    <script>
+        function validarCPF(){
+            let cpf = document.getElementById("cpf").value;
+            let numeros = [];
+            let resto = 0;
+            let soma = 0;
+            let digito = 0;
+            let digito2 = 0;
+            let cpfValido = true;
+            for(let i = 0; i < 9; i++){
+                numeros[i] = parseInt(cpf[i]);
+            }
+            for(let i = 0; i < 9; i++){
+                soma += numeros[i] * (10 - i);
+            }
+            resto = soma % 11;
+            if(resto < 2){
+                digito = 0;
+            }else{
+                digito = 11 - resto;
+            }
+            numeros[9] = digito;
+            soma = 0;
+            for(let i = 0; i < 10; i++){
+                soma += numeros[i] * (11 - i);
+            }
+            resto = soma % 11;
+            if(resto < 2){
+                digito2 = 0;
+            }else{
+                digito2 = 11 - resto;
+            }
+            numeros[10] = digito2;
+            for(let i = 0; i < 11; i++){
+                if(numeros[i] != parseInt(cpf[i])){
+                    cpfValido = false;
+                }
+            }
+            if(cpfValido){
+                document.getElementById("resultado").innerHTML = "CPF válido";
+            }else{
+                document.getElementById("resultado").innerHTML = "CPF inválido";
+            }
+        }
+    </script>
+</body>
+</html>
